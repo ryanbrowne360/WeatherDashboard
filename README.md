@@ -29,6 +29,7 @@ References:
 - [Moment.js Documentation](https://momentjs.com/docs/)
 - [JQuery Documentation](https://api.jquery.com/)
 - [Open Weather API](https://openweathermap.org/)
+- [Font Awesome](https://fontawesome.com/)
 
 License:
 
