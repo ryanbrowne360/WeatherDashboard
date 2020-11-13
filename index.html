@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+
+    <body>
+        <nav class="navbar navbar-dark bg-dark" id="nav">
+            <span id="header" class="navbar-brand mb-1 w-100 text-center">
+                <h1>Weather Dashboard</h1>
+            </span>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-3 mt-3">
+                    <h4><b>Search for a city</b></h4>
+                    <div class="input-group mb-3 mt-2">
+                        <input type="text" id="city" class="form-control =" placeholder="e.g. Toronto">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="searchBtn" type="button"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-small" id="clearBtn" type="button" onclick="clearHistory()">Clear
+                        History</button>
+
+                    <h5>Search History</h5>
+                    <table id="searchHistory" class="border-dark"></table>
+                </div>
+
+                <div class="col-9">
+                    <div class="row mr-0">
+
+                        <div class="col-12 border border-lg m-3 rounded">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 id="cityDate" class="text-center"></h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="temperature"></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="humidity"></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="windSpeed"></p>
+                                </div>
+                            </div>
+
+                            <!-- UV Index -->
+                            <div class="row">
+                                <div class="col-12 d-flex">
+                                    <p id="uvIndex"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>5-Day Forecast</h3>
+                        </div>
+                    </div>
+
+                    <div class="row" id="forecast">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
