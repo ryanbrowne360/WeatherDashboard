@@ -37,6 +37,8 @@ function getWeather() {
         
         getUV()
 
+        getForecastdata()
+
         // Appends Data from First API Call to main card
 
         let temperaturediv = $('#temperature')
@@ -61,4 +63,92 @@ function getUV() {
         let uvIndexdiv = $('#uvIndex')
         uvIndexdiv.append(`<b>UV Index: </b>${response.value}`)
     });
+}
+
+//Getting forecast data using http request link and displaying it on the UI
+function getForecastdata() {
+    const city = $("#city").val()
+    var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`
+    $.ajax({
+        url: forecastURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+
+        let day1 = response.list[4]
+        let day2 = response.list[12]
+        let day3 = response.list[20]
+        let day4 = response.list[28]
+        let day5 = response.list[36]
+
+        const forecastArray = [day1, day2, day3, day4, day5];
+
+        let forecastdiv = $('#forecast')
+
+        for (let i = 0; i < forecastArray.length; i++) {
+            let date = moment().add(1 + i, 'days').format('L')
+            let icon = forecastArray[i].weather[0].icon
+            console.log(icon)
+            let temperature = forecastArray[i].main.temp
+            console.log(temperature)
+            let humidity = forecastArray[i].main.humidity
+            console.log(humidity)
+
+            forecastdiv.append(`
+            <div class="card col forecastCard">
+                <div class="card-body">
+                    <h5 class="card-title" id="forecastDate"><b>${date}</b></h5>
+                    <img src="http://openweathermap.org/img/wn/${icon}@2x.png" />
+                    <p class="card-text forecast" id="forecastTemp"><b>Temperature: </b>${Math.round(parseInt(temperature) - 273.15)}°C</p>
+                    <p class="card-text forecast" id="forecastHumidity"><b>Humidity: </b>${humidity}%</p>
+                </div>
+            </div>`)
+        }
+    });
+}
+
+//Saving the search history in local storage then displaying on the UI
+function saveData(city) {
+    let historyID = 0;
+
+    if (localStorage.getItem("historyID") == undefined) {
+        localStorage.setItem("historyID", 0)
+    }
+    else {
+        historyID = localStorage.getItem("historyID");
+        ++historyID
+    }
+
+    localStorage.setItem(historyID, city)
+    localStorage.setItem("historyID", historyID)
+
+    $('#searchHistory').empty()
+
+    for (let i = 0; i <= historyID; i++) {
+
+        let city = localStorage.getItem(i)
+        $('#searchHistory').append(`<tr><td><button id="row${i + 1}" class="btn btn-sm btn-dark">` + city + `</button></td></tr>`)
+        document.getElementById(`row${i + 1}`).addEventListener("click", function () {
+            $("#city").val(city)
+            getWeather()
+        }); 
+       
+    }
+}
+
+function displayHistory() {
+    let historyID = localStorage.getItem("historyID");
+    for (let i = 0; i < historyID; i++) {
+        let city = localStorage.getItem(i)
+        $('#searchHistory').append(`<tr><td><button id="row${i + 1}" class="btn btn-sm btn-light">` + city + `</button></td></tr>`)
+    }
+}
+
+displayHistory()
+
+// Removing history when function is called
+
+function clearHistory() {
+    localStorage.clear();
+    $('#searchHistory').empty();
 }
